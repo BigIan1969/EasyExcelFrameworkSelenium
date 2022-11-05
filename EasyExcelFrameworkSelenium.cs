@@ -66,6 +66,11 @@ namespace EasyExcelFrameworkSelenium
         private bool launchbrowser(EasyExcelF ee, string[] parms)
         {
             string targetbrowser;
+            int timeout=60;
+            if (ee.Globals.ContainsKey("__EEF__TIMEOUT"))
+            {
+                timeout = (int)ee.Globals["__EEF__TIMEOUT"];
+            }
             try
             {
                 targetbrowser = ee.Interpreter.EvalToString(ee, parms[0], parms);
@@ -85,7 +90,7 @@ namespace EasyExcelFrameworkSelenium
                             chromeopts.AddArgument(opt);
                     }
                     driver = new ChromeDriver(ChromeDriverService.CreateDefaultService(), chromeopts, TimeSpan.FromMinutes(3));
-                    _ = driver.Manage().Timeouts().PageLoad.Add(TimeSpan.FromSeconds(60));
+                    _ = driver.Manage().Timeouts().PageLoad.Add(TimeSpan.FromSeconds(timeout));
                     break;
                 case "CHROME HEADLESS":
                     ChromeOptions headlesschromeopts = new ChromeOptions();
@@ -98,13 +103,15 @@ namespace EasyExcelFrameworkSelenium
                             headlesschromeopts.AddArgument(opt);
                     }
                     driver = new ChromeDriver(ChromeDriverService.CreateDefaultService(), headlesschromeopts, TimeSpan.FromMinutes(3));
-                    _ = driver.Manage().Timeouts().PageLoad.Add(TimeSpan.FromSeconds(60));
+                    _ = driver.Manage().Timeouts().PageLoad.Add(TimeSpan.FromSeconds(timeout));
                     break;
                 case "EDGE":
                     driver = new EdgeDriver();
+                    _ = driver.Manage().Timeouts().PageLoad.Add(TimeSpan.FromSeconds(timeout)); 
                     break;
                 case "FIREFOX":
                     driver = new FirefoxDriver();
+                    _ = driver.Manage().Timeouts().PageLoad.Add(TimeSpan.FromSeconds(timeout));
                     break;
 
             }
@@ -114,7 +121,7 @@ namespace EasyExcelFrameworkSelenium
         private bool getbrowsercapabilities(EasyExcelF ee, string[] parms)
         {
             ICapabilities cap = ((ChromeDriver)driver).Capabilities;
-            ee.Locals[parms[1]] = (string)cap.GetCapability(parms[0]);
+            ee.Locals[parms[1]] = cap.GetCapability(parms[0]);
             return true;
         }
         private bool gotourl(EasyExcelF ee, string[] parms)
