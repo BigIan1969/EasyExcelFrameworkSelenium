@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<package >
+  <metadata>
+    <id>EasyExcelFrameworkSelenium</id>
+    <version>0.0.2</version>
+    <title>EasyExcelFramework(Selenium)</title>
+    <authors>Ian Holdsworth</authors>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <license type="expression">LGPL-2.0-only</license>
+    <!-- <icon>icon.png</icon> -->
+    <projectUrl>https://github.com/BigIan1969/EasyExcelFrameworkSelenium</projectUrl>
+    <description>Extension of EasyExcelFramework to handle Selenium Tests</description>
+    <releaseNotes>Updated Dependencies</releaseNotes>
+    <copyright>Ian Holdsworth 2022</copyright>
+    <tags>Test TestAutomation Excel Keyword Selenium</tags>
+  </metadata>
+</package>

@@ -61,6 +61,12 @@ namespace EasyExcelFrameworkSelenium
             EasyExcel.RegisterMethod("WAIT UNTIL ELEMENT VISIBLE", waituntilcontrolvisible);
             EasyExcel.RegisterMethod("WAIT UNTIL ELEMENT CLICKABLE", waituntilcontrolclickable);
 
+            EasyExcel.RegisterMethod("SWITCH FRAME DEFAULT", switchframedefault);
+            EasyExcel.RegisterMethod("SWITCH FRAME BY INDEX", switchframebyname_id_index);
+            EasyExcel.RegisterMethod("SWITCH FRAME BY NAME", switchframebyname_id_index);
+            EasyExcel.RegisterMethod("SWITCH FRAME BY ID", switchframebyname_id_index);
+            EasyExcel.RegisterMethod("SWITCH FRAME BY ELEMENT", switchframebyelement);
+            EasyExcel.RegisterMethod("SWITCH FRAME PARENT", switchframeparent);
         }
 
         private bool launchbrowser(EasyExcelF ee, string[] parms)
@@ -369,6 +375,31 @@ namespace EasyExcelFrameworkSelenium
         {
             Locator lc = new Locator(ee, this.driver, parms[0]);
             waitclass.elewait(lc, elewaitconditions.CLICKABLE, waitclass.timeout(parms[0]));
+            return true;
+        }
+        private bool switchframedefault(EasyExcelF ee, string[] parms)
+        {
+            driver.SwitchTo().DefaultContent();
+            return true;
+        }
+        private bool switchframebyname_id_index(EasyExcelF ee, string[] parms)
+        {
+            if (int.TryParse(parms[0], out _))
+                driver.SwitchTo().Frame(int.Parse(parms[0]));
+            else
+                driver.SwitchTo().Frame(parms[0]);
+            return true;
+        }
+        private bool switchframebyelement(EasyExcelF ee, string[] parms)
+        {
+            Locator lc = new Locator(ee, this.driver, parms[0]);
+            driver.SwitchTo().Frame(waitclass.bywait(lc, bywaitconditions.EXISTS));
+            return true;
+        }
+        private bool switchframeparent(EasyExcelF ee, string[] parms)
+        {
+            Locator lc = new Locator(ee, this.driver, parms[0]);
+            driver.SwitchTo().ParentFrame();
             return true;
         }
         public class Locator
