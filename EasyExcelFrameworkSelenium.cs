@@ -11,65 +11,65 @@ namespace EasyExcelFrameworkSelenium
     public class EasyExcelFrameworkSelenium
     {
         public EasyExcelF EasyExcel;
-        public IWebDriver driver;
-        private Wait waitclass;
+        public IWebDriver? driver;
+        private Wait? waitclass;
 
-        public enum elewaitconditions { CLICKABLE }
-        public enum bywaitconditions { VISIBLE, EXISTS }
+        public enum Elewaitconditions { CLICKABLE }
+        public enum Bywaitconditions { VISIBLE, EXISTS }
 
         public EasyExcelFrameworkSelenium(string filename)
         {
             //Implement Constructor for Framework Extension
             this.EasyExcel = new EasyExcelF(filename);
-            init();
+            Init();
         }
 
-        private void init()
+        private void Init()
         {
             EasyExcel.RegisterScreenShot(Screenshot);
 
-            EasyExcel.RegisterMethod("LAUNCH", launchbrowser);
+            EasyExcel.RegisterMethod("LAUNCH", Launchbrowser);
             
-            EasyExcel.RegisterMethod("URL", gotourl);
+            EasyExcel.RegisterMethod("URL", Gotourl);
             
-            EasyExcel.RegisterMethod("GET BROWSER CAPABILITIES", getbrowsercapabilities);
-            EasyExcel.RegisterMethod("GET URL", geturl);
-            EasyExcel.RegisterMethod("GET ATTRIBUTE", getattribute);
-            EasyExcel.RegisterMethod("IS SELECTED", isselected);
-            EasyExcel.RegisterMethod("GET SELECTION", getselected);
+            EasyExcel.RegisterMethod("GET BROWSER CAPABILITIES", Getbrowsercapabilities);
+            EasyExcel.RegisterMethod("GET URL", Geturl);
+            EasyExcel.RegisterMethod("GET ATTRIBUTE", Getattribute);
+            EasyExcel.RegisterMethod("IS SELECTED", Isselected);
+            EasyExcel.RegisterMethod("GET SELECTION", Getselected);
 
-            EasyExcel.RegisterMethod("ACCEPT ALERT", acceptalert);
-            EasyExcel.RegisterMethod("DISMISS ALERT", dismisalert);
+            EasyExcel.RegisterMethod("ACCEPT ALERT", Acceptalert);
+            EasyExcel.RegisterMethod("DISMISS ALERT", Dismisalert);
 
-            EasyExcel.RegisterMethod("CLICK", click);
-            EasyExcel.RegisterMethod("TYPE", type);
-            EasyExcel.RegisterMethod("CLEAR", clear);
-            EasyExcel.RegisterMethod("SUBMIT", submit);
-            EasyExcel.RegisterMethod("CHECK", check);
-            EasyExcel.RegisterMethod("UNCHECK", uncheck);
-            EasyExcel.RegisterMethod("SELECT BY TEXT", selectbytext);
-            EasyExcel.RegisterMethod("SELECT BY VALUE", selectbyvalue);
-            EasyExcel.RegisterMethod("SELECT BY INDEX", selectbyindex);
-            EasyExcel.RegisterMethod("DESELECT BY TEXT", deselectbytext);
-            EasyExcel.RegisterMethod("DESELECT BY VALUE", deselectbyvalue);
-            EasyExcel.RegisterMethod("DESELECT BY INDEX", deselectbyindex);
-            EasyExcel.RegisterMethod("SELECT ALL", selectall);
-            EasyExcel.RegisterMethod("DESELECT ALL", deselectall);
+            EasyExcel.RegisterMethod("CLICK", Click);
+            EasyExcel.RegisterMethod("TYPE", Type);
+            EasyExcel.RegisterMethod("CLEAR", Clear);
+            EasyExcel.RegisterMethod("SUBMIT", Submit);
+            EasyExcel.RegisterMethod("CHECK", Check);
+            EasyExcel.RegisterMethod("UNCHECK", Uncheck);
+            EasyExcel.RegisterMethod("SELECT BY TEXT", Selectbytext);
+            EasyExcel.RegisterMethod("SELECT BY VALUE", Selectbyvalue);
+            EasyExcel.RegisterMethod("SELECT BY INDEX", Selectbyindex);
+            EasyExcel.RegisterMethod("DESELECT BY TEXT", Deselectbytext);
+            EasyExcel.RegisterMethod("DESELECT BY VALUE", Deselectbyvalue);
+            EasyExcel.RegisterMethod("DESELECT BY INDEX", Deselectbyindex);
+            EasyExcel.RegisterMethod("SELECT ALL", Selectall);
+            EasyExcel.RegisterMethod("DESELECT ALL", Deselectall);
 
-            EasyExcel.RegisterMethod("WAIT UNTIL ALERT IS PRESENT", waituntilalertpresent);
-            EasyExcel.RegisterMethod("WAIT UNTIL ELEMENT EXISTS", waituntilcontrolexists);
-            EasyExcel.RegisterMethod("WAIT UNTIL ELEMENT VISIBLE", waituntilcontrolvisible);
-            EasyExcel.RegisterMethod("WAIT UNTIL ELEMENT CLICKABLE", waituntilcontrolclickable);
+            EasyExcel.RegisterMethod("WAIT UNTIL ALERT IS PRESENT", Waituntilalertpresent);
+            EasyExcel.RegisterMethod("WAIT UNTIL ELEMENT EXISTS", Waituntilcontrolexists);
+            EasyExcel.RegisterMethod("WAIT UNTIL ELEMENT VISIBLE", Waituntilcontrolvisible);
+            EasyExcel.RegisterMethod("WAIT UNTIL ELEMENT CLICKABLE", Waituntilcontrolclickable);
 
-            EasyExcel.RegisterMethod("SWITCH FRAME DEFAULT", switchframedefault);
-            EasyExcel.RegisterMethod("SWITCH FRAME BY INDEX", switchframebyname_id_index);
-            EasyExcel.RegisterMethod("SWITCH FRAME BY NAME", switchframebyname_id_index);
-            EasyExcel.RegisterMethod("SWITCH FRAME BY ID", switchframebyname_id_index);
-            EasyExcel.RegisterMethod("SWITCH FRAME BY ELEMENT", switchframebyelement);
-            EasyExcel.RegisterMethod("SWITCH FRAME PARENT", switchframeparent);
+            EasyExcel.RegisterMethod("SWITCH FRAME DEFAULT", Switchframedefault);
+            EasyExcel.RegisterMethod("SWITCH FRAME BY INDEX", Switchframebyname_id_index);
+            EasyExcel.RegisterMethod("SWITCH FRAME BY NAME", Switchframebyname_id_index);
+            EasyExcel.RegisterMethod("SWITCH FRAME BY ID", Switchframebyname_id_index);
+            EasyExcel.RegisterMethod("SWITCH FRAME BY ELEMENT", Switchframebyelement);
+            EasyExcel.RegisterMethod("SWITCH FRAME PARENT", Switchframeparent);
         }
 
-        private bool launchbrowser(EasyExcelF ee, string[] parms)
+        private bool Launchbrowser(EasyExcelF ee, string[] parms)
         {
             string targetbrowser;
             int timeout=60;
@@ -88,18 +88,9 @@ namespace EasyExcelFrameworkSelenium
             switch (targetbrowser.ToUpper())
             {
                 case "CHROME":
-                    ChromeOptions chromeopts = new ChromeOptions();
-
-                    foreach (string opt in parms[1..])
-                    {
-                        if (!string.IsNullOrEmpty(opt))
-                            chromeopts.AddArgument(opt);
-                    }
-                    driver = new ChromeDriver(ChromeDriverService.CreateDefaultService(), chromeopts, TimeSpan.FromMinutes(3));
-                    _ = driver.Manage().Timeouts().PageLoad.Add(TimeSpan.FromSeconds(timeout));
-                    break;
+                    goto default;
                 case "CHROME HEADLESS":
-                    ChromeOptions headlesschromeopts = new ChromeOptions();
+                    ChromeOptions headlesschromeopts = new();
                     headlesschromeopts.AddArgument("--headless");
                     headlesschromeopts.AddArgument("--disable-gpu");
 
@@ -109,30 +100,45 @@ namespace EasyExcelFrameworkSelenium
                             headlesschromeopts.AddArgument(opt);
                     }
                     driver = new ChromeDriver(ChromeDriverService.CreateDefaultService(), headlesschromeopts, TimeSpan.FromMinutes(3));
-                    _ = driver.Manage().Timeouts().PageLoad.Add(TimeSpan.FromSeconds(timeout));
                     break;
                 case "EDGE":
                     driver = new EdgeDriver();
-                    _ = driver.Manage().Timeouts().PageLoad.Add(TimeSpan.FromSeconds(timeout)); 
                     break;
                 case "FIREFOX":
                     driver = new FirefoxDriver();
-                    _ = driver.Manage().Timeouts().PageLoad.Add(TimeSpan.FromSeconds(timeout));
+                    break;
+                default:
+                    ChromeOptions chromeopts = new();
+
+                    foreach (string opt in parms[1..])
+                    {
+                        if (!string.IsNullOrEmpty(opt))
+                            chromeopts.AddArgument(opt);
+                    }
+                    driver = new ChromeDriver(ChromeDriverService.CreateDefaultService(), chromeopts, TimeSpan.FromMinutes(3));
                     break;
 
             }
+            _ = driver.Manage().Timeouts().PageLoad.Add(TimeSpan.FromSeconds(timeout));
             waitclass = new Wait(driver);
             return true;
         }
-        private bool getbrowsercapabilities(EasyExcelF ee, string[] parms)
+        private bool Getbrowsercapabilities(EasyExcelF ee, string[] parms)
         {
+            if (driver == null || waitclass == null)
+            {
+                throw new InvalidOperationException("Browser is in open");
+            }
             ICapabilities cap = ((ChromeDriver)driver).Capabilities;
             ee.Locals[parms[1]] = cap.GetCapability(parms[0]);
             return true;
         }
-        private bool gotourl(EasyExcelF ee, string[] parms)
+        private bool Gotourl(EasyExcelF ee, string[] parms)
         {
-            EasyExcelFramework.InterpreterClass interp = new EasyExcelFramework.InterpreterClass();
+            if (driver==null || waitclass==null)
+            {
+                throw new InvalidOperationException("Browser is in open");
+            }
             string targ;
             try
             {
@@ -145,15 +151,23 @@ namespace EasyExcelFrameworkSelenium
             driver.Navigate().GoToUrl(targ);
             return true;
         }
-        private bool geturl(EasyExcelF ee, string[] parms)
+        private bool Geturl(EasyExcelF ee, string[] parms)
         {
+            if (driver == null || waitclass == null)
+            {
+                throw new InvalidOperationException("Browser is in open");
+            }
             ee.Locals[parms[0]] = driver.Url.ToString();
             return true;
         }
-        private bool click(EasyExcelF ee, string[] parms)
+        private bool Click(EasyExcelF ee, string[] parms)
         {
-            Locator lc = new Locator(ee, this.driver, parms[0]);
-            IWebElement ele = waitclass.elewait(lc, elewaitconditions.CLICKABLE);
+            if (driver == null || waitclass == null)
+            {
+                throw new InvalidOperationException("Browser is in open");
+            }
+            Locator lc = new(ee, this.driver, parms[0]);
+            IWebElement ele = waitclass.Elewait(lc, Elewaitconditions.CLICKABLE);
             if (ele != null)
             {
                 ele.Click();
@@ -164,10 +178,14 @@ namespace EasyExcelFrameworkSelenium
             }
             return true;
         }
-        private bool submit(EasyExcelF ee, string[] parms)
+        private bool Submit(EasyExcelF ee, string[] parms)
         {
-            Locator lc = new Locator(ee, this.driver, parms[0]);
-            IWebElement ele = waitclass.elewait(lc, elewaitconditions.CLICKABLE);
+            if (driver == null || waitclass == null)
+            {
+                throw new InvalidOperationException("Browser is in open");
+            }
+            Locator lc = new(ee, this.driver, parms[0]);
+            IWebElement ele = waitclass.Elewait(lc, Elewaitconditions.CLICKABLE);
             if (ele != null)
             {
                 ele.Submit();
@@ -178,10 +196,14 @@ namespace EasyExcelFrameworkSelenium
             }
             return true;
         }
-        private bool type(EasyExcelF ee, string[] parms)
+        private bool Type(EasyExcelF ee, string[] parms)
         {
-            Locator lc = new Locator(ee, this.driver, parms[0]);
-            IWebElement ele = waitclass.elewait(lc, elewaitconditions.CLICKABLE);
+            if (driver == null || waitclass == null)
+            {
+                throw new InvalidOperationException("Browser is in open");
+            }
+            Locator lc = new(ee, driver, parms[0]);
+            IWebElement ele = waitclass.Elewait(lc, Elewaitconditions.CLICKABLE);
             if (ele != null)
             {
                 string text;
@@ -201,10 +223,14 @@ namespace EasyExcelFrameworkSelenium
             }
             return true;
         }
-        private bool clear(EasyExcelF ee, string[] parms)
+        private bool Clear(EasyExcelF ee, string[] parms)
         {
-            Locator lc = new Locator(ee, this.driver, parms[0]);
-            IWebElement ele = waitclass.elewait(lc, elewaitconditions.CLICKABLE);
+            if (driver == null || waitclass == null)
+            {
+                throw new InvalidOperationException("Browser is in open");
+            }
+            Locator lc = new(ee, this.driver, parms[0]);
+            IWebElement ele = waitclass.Elewait(lc, Elewaitconditions.CLICKABLE);
             if (ele != null)
             {
                 ele.Clear();
@@ -215,81 +241,121 @@ namespace EasyExcelFrameworkSelenium
             }
             return true;
         }
-        private bool acceptalert(EasyExcelF ee, string[] parms)
+        private bool Acceptalert(EasyExcelF ee, string[] parms)
         {
-            waitclass.waitalert(waitclass.timeout(parms[0]));
+            if (driver == null || waitclass == null)
+            {
+                throw new InvalidOperationException("Browser is in open");
+            }
+            waitclass.Waitalert(Wait.Timeout(parms[0]));
             driver.SwitchTo().Alert().Accept();
             return true;
         }
-        private bool dismisalert(EasyExcelF ee, string[] parms)
+        private bool Dismisalert(EasyExcelF ee, string[] parms)
         {
-            waitclass.waitalert(waitclass.timeout(parms[0]));
+            if (driver == null || waitclass == null)
+            {
+                throw new InvalidOperationException("Browser is in open");
+            }
+            waitclass.Waitalert(Wait.Timeout(parms[0]));
             driver.SwitchTo().Alert().Dismiss();
             return true;
         }
-        private bool check(EasyExcelF ee, string[] parms)
+        private bool Check(EasyExcelF ee, string[] parms)
         {
-            Locator lc = new Locator(ee, this.driver, parms[0]);
-            IWebElement ele = waitclass.elewait(lc, elewaitconditions.CLICKABLE);
+            if (driver == null || waitclass == null)
+            {
+                throw new InvalidOperationException("Browser is in open");
+            }
+            Locator lc = new(ee, this.driver, parms[0]);
+            IWebElement ele = waitclass.Elewait(lc, Elewaitconditions.CLICKABLE);
             if (ele.Selected)
                 return true;
             else
                 ele.Click();
             return true;
         }
-        private bool uncheck(EasyExcelF ee, string[] parms)
+        private bool Uncheck(EasyExcelF ee, string[] parms)
         {
-            Locator lc = new Locator(ee, this.driver, parms[0]);
-            IWebElement ele = waitclass.elewait(lc, elewaitconditions.CLICKABLE);
+            if (driver == null || waitclass == null)
+            {
+                throw new InvalidOperationException("Browser is in open");
+            }
+            Locator lc = new(ee, this.driver, parms[0]);
+            IWebElement ele = waitclass.Elewait(lc, Elewaitconditions.CLICKABLE);
             if (!ele.Selected)
                 return true;
             else
                 ele.Click();
             return true;
         }
-        private bool getattribute(EasyExcelF ee, string[] parms)
+        private bool Getattribute(EasyExcelF ee, string[] parms)
         {
-            Locator lc = new Locator(ee, this.driver, parms[0]);
-            IWebElement ele = waitclass.bywait(lc, bywaitconditions.EXISTS);
+            if (driver == null || waitclass == null)
+            {
+                throw new InvalidOperationException("Browser is in open");
+            }
+            Locator lc = new(ee, this.driver, parms[0]);
+            IWebElement ele = waitclass.Bywait(lc, Bywaitconditions.EXISTS);
             ee.Locals[parms[2]] = ele.GetAttribute(parms[1]);
             return true;
         }
-        private bool isselected(EasyExcelF ee, string[] parms)
+        private bool Isselected(EasyExcelF ee, string[] parms)
         {
-            Locator lc = new Locator(ee, this.driver, parms[0]);
-            IWebElement ele = waitclass.bywait(lc, bywaitconditions.EXISTS);
+            if (driver == null || waitclass == null)
+            {
+                throw new InvalidOperationException("Browser is in open");
+            }
+            Locator lc = new(ee, this.driver, parms[0]);
+            IWebElement ele = waitclass.Bywait(lc, Bywaitconditions.EXISTS);
             ee.Locals[parms[1]] = ele.Selected.ToString().ToLower();
             return true;
         }
 
-        private bool selectbytext(EasyExcelF ee, string[] parms)
+        private bool Selectbytext(EasyExcelF ee, string[] parms)
         {
-            Locator lc = new Locator(ee, this.driver, parms[0]);
-            IWebElement ele = waitclass.bywait(lc, bywaitconditions.EXISTS);
+            if (driver == null || waitclass == null)
+            {
+                throw new InvalidOperationException("Browser is in open");
+            }
+            Locator lc = new(ee, driver, parms[0]);
+            IWebElement ele = waitclass.Bywait(lc, Bywaitconditions.EXISTS);
             var selectele = new SelectElement(ele);
             selectele.SelectByText(parms[1]);
             return true;
         }
-        private bool selectbyvalue(EasyExcelF ee, string[] parms)
+        private bool Selectbyvalue(EasyExcelF ee, string[] parms)
         {
-            Locator lc = new Locator(ee, this.driver, parms[0]);
-            IWebElement ele = waitclass.bywait(lc, bywaitconditions.EXISTS);
+            if (driver == null || waitclass == null)
+            {
+                throw new InvalidOperationException("Browser is in open");
+            }
+            Locator lc = new(ee, driver, parms[0]);
+            IWebElement ele = waitclass.Bywait(lc, Bywaitconditions.EXISTS);
             var selectele = new SelectElement(ele);
             selectele.SelectByValue(parms[1]);
             return true;
         }
-        private bool selectbyindex(EasyExcelF ee, string[] parms)
+        private bool Selectbyindex(EasyExcelF ee, string[] parms)
         {
-            Locator lc = new Locator(ee, this.driver, parms[0]);
-            IWebElement ele = waitclass.bywait(lc, bywaitconditions.EXISTS);
+            if (driver == null || waitclass == null)
+            {
+                throw new InvalidOperationException("Browser is in open");
+            }
+            Locator lc = new(ee, driver, parms[0]);
+            IWebElement ele = waitclass.Bywait(lc, Bywaitconditions.EXISTS);
             var selectele = new SelectElement(ele);
             selectele.SelectByIndex(int.Parse(parms[1]));
             return true;
         }
-        private bool selectall(EasyExcelF ee, string[] parms)
+        private bool Selectall(EasyExcelF ee, string[] parms)
         {
-            Locator lc = new Locator(ee, this.driver, parms[0]);
-            IWebElement ele = waitclass.bywait(lc, bywaitconditions.EXISTS);
+            if (driver == null || waitclass == null)
+            {
+                throw new InvalidOperationException("Browser is in open");
+            }
+            Locator lc = new(ee, this.driver, parms[0]);
+            IWebElement ele = waitclass.Bywait(lc, Bywaitconditions.EXISTS);
             var selectele = new SelectElement(ele);
             for (int i = 0; i < selectele.Options.Count; i++)
             {
@@ -298,10 +364,14 @@ namespace EasyExcelFrameworkSelenium
             }
             return true;
         }
-        private bool getselected(EasyExcelF ee, string[] parms)
+        private bool Getselected(EasyExcelF ee, string[] parms)
         {
-            Locator lc = new Locator(ee, this.driver, parms[0]);
-            IWebElement ele = waitclass.bywait(lc, bywaitconditions.EXISTS);
+            if (driver == null || waitclass == null)
+            {
+                throw new InvalidOperationException("Browser is in open");
+            }
+            Locator lc = new(ee, this.driver, parms[0]);
+            IWebElement ele = waitclass.Bywait(lc, Bywaitconditions.EXISTS);
             var selectele = new SelectElement(ele);
             string result = "";
             for (int i = 0; i < selectele.Options.Count; i++)
@@ -321,84 +391,131 @@ namespace EasyExcelFrameworkSelenium
             ee.Locals[parms[1]] = result;
             return true;
         }
-        private bool deselectall(EasyExcelF ee, string[] parms)
+        private bool Deselectall(EasyExcelF ee, string[] parms)
         {
-            Locator lc = new Locator(ee, this.driver, parms[0]);
-            IWebElement ele = waitclass.bywait(lc, bywaitconditions.EXISTS);
+            if (driver == null || waitclass == null)
+            {
+                throw new InvalidOperationException("Browser is in open");
+            }
+            Locator lc = new(ee, this.driver, parms[0]);
+            IWebElement ele = waitclass.Bywait(lc, Bywaitconditions.EXISTS);
             var selectele = new SelectElement(ele);
             selectele.DeselectAll();
             return true;
         }
 
-        private bool deselectbytext(EasyExcelF ee, string[] parms)
+        private bool Deselectbytext(EasyExcelF ee, string[] parms)
         {
-            Locator lc = new Locator(ee, this.driver, parms[0]);
-            IWebElement ele = waitclass.bywait(lc, bywaitconditions.EXISTS);
+            if (driver == null || waitclass == null)
+            {
+                throw new InvalidOperationException("Browser is in open");
+            }
+            Locator lc = new(ee, this.driver, parms[0]);
+            IWebElement ele = waitclass.Bywait(lc, Bywaitconditions.EXISTS);
             var selectele = new SelectElement(ele);
             selectele.DeselectByText(parms[1]);
             return true;
         }
-        private bool deselectbyvalue(EasyExcelF ee, string[] parms)
+        private bool Deselectbyvalue(EasyExcelF ee, string[] parms)
         {
-            Locator lc = new Locator(ee, this.driver, parms[0]);
-            IWebElement ele = waitclass.bywait(lc, bywaitconditions.EXISTS);
+            if (driver == null || waitclass == null)
+            {
+                throw new InvalidOperationException("Browser is in open");
+            }
+            Locator lc = new(ee, this.driver, parms[0]);
+            IWebElement ele = waitclass.Bywait(lc, Bywaitconditions.EXISTS);
             var selectele = new SelectElement(ele);
             selectele.DeselectByValue(parms[1]);
             return true;
         }
-        private bool deselectbyindex(EasyExcelF ee, string[] parms)
+        private bool Deselectbyindex(EasyExcelF ee, string[] parms)
         {
-            Locator lc = new Locator(ee, this.driver, parms[0]);
-            IWebElement ele = waitclass.bywait(lc, bywaitconditions.EXISTS);
+            if (driver == null || waitclass == null)
+            {
+                throw new InvalidOperationException("Browser is in open");
+            }
+            Locator lc = new(ee, this.driver, parms[0]);
+            IWebElement ele = waitclass.Bywait(lc, Bywaitconditions.EXISTS);
             var selectele = new SelectElement(ele);
             selectele.DeselectByIndex(int.Parse(parms[1]));
             return true;
         }
-        private bool waituntilalertpresent(EasyExcelF ee, string[] parms)
+        private bool Waituntilalertpresent(EasyExcelF ee, string[] parms)
         {
-            waitclass.waitalert(waitclass.timeout(parms[0]));
+            if (driver == null || waitclass == null)
+            {
+                throw new InvalidOperationException("Browser is in open");
+            }
+            waitclass.Waitalert(Wait.Timeout(parms[0]));
             return true;
         }
-        private bool waituntilcontrolexists(EasyExcelF ee, string[] parms)
+        private bool Waituntilcontrolexists(EasyExcelF ee, string[] parms)
         {
-            Locator lc = new Locator(ee, this.driver, parms[0]);
-            waitclass.bywait(lc, bywaitconditions.EXISTS, waitclass.timeout(parms[0]));
+            if (driver == null || waitclass == null)
+            {
+                throw new InvalidOperationException("Browser is in open");
+            }
+            Locator lc = new(ee, this.driver, parms[0]);
+            waitclass.Bywait(lc, Bywaitconditions.EXISTS, Wait.Timeout(parms[0]));
             return true;
         }
-        private bool waituntilcontrolvisible(EasyExcelF ee, string[] parms)
+        private bool Waituntilcontrolvisible(EasyExcelF ee, string[] parms)
         {
-            Locator lc = new Locator(ee, this.driver, parms[0]);
-            waitclass.bywait(lc, bywaitconditions.VISIBLE, waitclass.timeout(parms[0]));
+            if (driver == null || waitclass == null)
+            {
+                throw new InvalidOperationException("Browser is in open");
+            }
+            Locator lc = new(ee, this.driver, parms[0]);
+            waitclass.Bywait(lc, Bywaitconditions.VISIBLE, Wait.Timeout(parms[0]));
             return true;
         }
-        private bool waituntilcontrolclickable(EasyExcelF ee, string[] parms)
+        private bool Waituntilcontrolclickable(EasyExcelF ee, string[] parms)
         {
-            Locator lc = new Locator(ee, this.driver, parms[0]);
-            waitclass.elewait(lc, elewaitconditions.CLICKABLE, waitclass.timeout(parms[0]));
+            if (driver == null || waitclass == null)
+            {
+                throw new InvalidOperationException("Browser is in open");
+            }
+            Locator lc = new(ee, this.driver, parms[0]);
+            waitclass.Elewait(lc, Elewaitconditions.CLICKABLE, Wait.Timeout(parms[0]));
             return true;
         }
-        private bool switchframedefault(EasyExcelF ee, string[] parms)
+        private bool Switchframedefault(EasyExcelF ee, string[] parms)
         {
+            if (driver == null || waitclass == null)
+            {
+                throw new InvalidOperationException("Browser is in open");
+            }
             driver.SwitchTo().DefaultContent();
             return true;
         }
-        private bool switchframebyname_id_index(EasyExcelF ee, string[] parms)
+        private bool Switchframebyname_id_index(EasyExcelF ee, string[] parms)
         {
+            if (driver == null || waitclass == null)
+            {
+                throw new InvalidOperationException("Browser is in open");
+            }
             if (int.TryParse(parms[0], out _))
                 driver.SwitchTo().Frame(int.Parse(parms[0]));
             else
                 driver.SwitchTo().Frame(parms[0]);
             return true;
         }
-        private bool switchframebyelement(EasyExcelF ee, string[] parms)
+        private bool Switchframebyelement(EasyExcelF ee, string[] parms)
         {
-            Locator lc = new Locator(ee, this.driver, parms[0]);
-            driver.SwitchTo().Frame(waitclass.bywait(lc, bywaitconditions.EXISTS));
+            if (driver == null || waitclass == null)
+            {
+                throw new InvalidOperationException("Browser is in open");
+            }
+            Locator lc = new(ee, this.driver, parms[0]);
+            driver.SwitchTo().Frame(waitclass.Bywait(lc, Bywaitconditions.EXISTS));
             return true;
         }
-        private bool switchframeparent(EasyExcelF ee, string[] parms)
+        private bool Switchframeparent(EasyExcelF ee, string[] parms)
         {
-            Locator lc = new Locator(ee, this.driver, parms[0]);
+            if (driver == null || waitclass == null)
+            {
+                throw new InvalidOperationException("Browser is in open");
+            }
             driver.SwitchTo().ParentFrame();
             return true;
         }
@@ -411,7 +528,7 @@ namespace EasyExcelFrameworkSelenium
             {
                 original = loc;
                 targets = new List<IWebElement>();
-                List<string> targstrs = new List<string>();
+                List<string> targstrs = new();
                 bys = new List<By>();
                 if (ee.Worksheets.ContainsKey("@Locators"))
                 {
@@ -419,7 +536,7 @@ namespace EasyExcelFrameworkSelenium
                     DataRow[] rows = ee.Worksheets["@Locators"].Select(col1 + " Like'" + loc + "'");
                     foreach (DataRow row in rows)
                     {
-                        foreach (string col in row.ItemArray)
+                        foreach (string col in row.ItemArray.Cast<string>())
                         {
                             targstrs.Add(col.ToString());
                         }
@@ -537,7 +654,7 @@ namespace EasyExcelFrameworkSelenium
         private string Screenshot(string defaultpath)
         {
             Screenshot TakeScreenshot = ((ITakesScreenshot)driver).GetScreenshot();
-            Random randNo = new Random();
+            Random randNo = new();
             string fname = "\\"+randNo.Next(0, 10000).ToString() + ".png";
             TakeScreenshot.SaveAsFile(defaultpath+fname);
             return defaultpath + fname;

@@ -6,13 +6,13 @@ namespace EasyExcelFrameworkSelenium
 {
     internal class Wait
     {
-        private IWebDriver driver;
+        private readonly IWebDriver driver;
 
         public Wait(IWebDriver _driver)
         {
             driver = _driver;
         }
-        public int timeout(string suppliedstring)
+        public static int Timeout(string suppliedstring)
         {
             int timeout;
             try
@@ -26,19 +26,19 @@ namespace EasyExcelFrameworkSelenium
             return (timeout);
 
         }
-        public IWebElement bywait(Locator lc, bywaitconditions condition, int seconds = 60)
+        public IWebElement? Bywait(Locator lc, Bywaitconditions condition, int seconds = 60)
         {
-            WebDriverWait wait = new WebDriverWait(driver, TimeSpan.FromMilliseconds(1));
+            WebDriverWait wait = new(driver, TimeSpan.FromMilliseconds(1));
             DateTime endtime = DateTime.Now.AddSeconds(seconds);
             while (DateTime.Now < endtime)
             {
-                IWebElement element;
+                IWebElement? element;
                 foreach (By by in lc.bys)
                 {
 
                     switch (condition)
                     {
-                        case bywaitconditions.VISIBLE:
+                        case Bywaitconditions.VISIBLE:
                             {
                                 try
                                 {
@@ -50,7 +50,7 @@ namespace EasyExcelFrameworkSelenium
                                 }
                                 break;
                             }
-                        case bywaitconditions.EXISTS:
+                        case Bywaitconditions.EXISTS:
                             {
                                 try
                                 {
@@ -81,19 +81,19 @@ namespace EasyExcelFrameworkSelenium
             return null;
         }
 
-        public IWebElement elewait(Locator lc, elewaitconditions condition, int seconds = 60)
+        public IWebElement? Elewait(Locator lc, Elewaitconditions condition, int seconds = 60)
         {
-            WebDriverWait wait = new WebDriverWait(driver, TimeSpan.FromMilliseconds(1));
+            WebDriverWait wait = new(driver, TimeSpan.FromMilliseconds(1));
             DateTime endtime = DateTime.Now.AddSeconds(seconds);
             while (DateTime.Now < endtime)
             {
-                IWebElement element;
+                IWebElement? element;
                 foreach (IWebElement ele in lc.targets)
                 {
 
                     switch (condition)
                     {
-                        case elewaitconditions.CLICKABLE:
+                        case Elewaitconditions.CLICKABLE:
                             {
                                 element = wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.ElementToBeClickable(ele));
                                 break;
@@ -115,9 +115,9 @@ namespace EasyExcelFrameworkSelenium
             }
             return null;
         }
-        public void waitalert(int seconds = 60)
+        public void Waitalert(int seconds = 60)
         {
-            var wait = new WebDriverWait(driver, TimeSpan.FromSeconds(15));
+            var wait = new WebDriverWait(driver, TimeSpan.FromSeconds(seconds));
             wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.AlertIsPresent());
         }
 
