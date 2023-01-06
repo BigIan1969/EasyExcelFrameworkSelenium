@@ -69,7 +69,7 @@ namespace EasyExcelFrameworkSelenium
             EasyExcel.RegisterMethod("SWITCH FRAME PARENT", Switchframeparent);
         }
 
-        private bool Launchbrowser(EasyExcelF ee, string[] parms)
+        private bool Launchbrowser(EasyExcelF ee, dynamic[] parms)
         {
             string targetbrowser;
             int timeout=60;
@@ -123,7 +123,7 @@ namespace EasyExcelFrameworkSelenium
             waitclass = new Wait(driver);
             return true;
         }
-        private bool Getbrowsercapabilities(EasyExcelF ee, string[] parms)
+        private bool Getbrowsercapabilities(EasyExcelF ee, dynamic[] parms)
         {
             if (driver == null || waitclass == null)
             {
@@ -133,7 +133,7 @@ namespace EasyExcelFrameworkSelenium
             ee.Locals[parms[1]] = cap.GetCapability(parms[0]);
             return true;
         }
-        private bool Gotourl(EasyExcelF ee, string[] parms)
+        private bool Gotourl(EasyExcelF ee, dynamic[] parms)
         {
             if (driver==null || waitclass==null)
             {
@@ -151,7 +151,7 @@ namespace EasyExcelFrameworkSelenium
             driver.Navigate().GoToUrl(targ);
             return true;
         }
-        private bool Geturl(EasyExcelF ee, string[] parms)
+        private bool Geturl(EasyExcelF ee, dynamic[] parms)
         {
             if (driver == null || waitclass == null)
             {
@@ -160,7 +160,7 @@ namespace EasyExcelFrameworkSelenium
             ee.Locals[parms[0]] = driver.Url.ToString();
             return true;
         }
-        private bool Click(EasyExcelF ee, string[] parms)
+        private bool Click(EasyExcelF ee, dynamic[] parms)
         {
             if (driver == null || waitclass == null)
             {
@@ -178,7 +178,7 @@ namespace EasyExcelFrameworkSelenium
             }
             return true;
         }
-        private bool Submit(EasyExcelF ee, string[] parms)
+        private bool Submit(EasyExcelF ee, dynamic[] parms)
         {
             if (driver == null || waitclass == null)
             {
@@ -196,7 +196,7 @@ namespace EasyExcelFrameworkSelenium
             }
             return true;
         }
-        private bool Type(EasyExcelF ee, string[] parms)
+        private bool Type(EasyExcelF ee, dynamic[] parms)
         {
             if (driver == null || waitclass == null)
             {
@@ -223,7 +223,7 @@ namespace EasyExcelFrameworkSelenium
             }
             return true;
         }
-        private bool Clear(EasyExcelF ee, string[] parms)
+        private bool Clear(EasyExcelF ee, dynamic[] parms)
         {
             if (driver == null || waitclass == null)
             {
@@ -241,7 +241,7 @@ namespace EasyExcelFrameworkSelenium
             }
             return true;
         }
-        private bool Acceptalert(EasyExcelF ee, string[] parms)
+        private bool Acceptalert(EasyExcelF ee, dynamic[] parms)
         {
             if (driver == null || waitclass == null)
             {
@@ -251,7 +251,7 @@ namespace EasyExcelFrameworkSelenium
             driver.SwitchTo().Alert().Accept();
             return true;
         }
-        private bool Dismisalert(EasyExcelF ee, string[] parms)
+        private bool Dismisalert(EasyExcelF ee, dynamic[] parms)
         {
             if (driver == null || waitclass == null)
             {
@@ -261,7 +261,7 @@ namespace EasyExcelFrameworkSelenium
             driver.SwitchTo().Alert().Dismiss();
             return true;
         }
-        private bool Check(EasyExcelF ee, string[] parms)
+        private bool Check(EasyExcelF ee, dynamic[] parms)
         {
             if (driver == null || waitclass == null)
             {
@@ -275,7 +275,7 @@ namespace EasyExcelFrameworkSelenium
                 ele.Click();
             return true;
         }
-        private bool Uncheck(EasyExcelF ee, string[] parms)
+        private bool Uncheck(EasyExcelF ee, dynamic[] parms)
         {
             if (driver == null || waitclass == null)
             {
@@ -289,7 +289,7 @@ namespace EasyExcelFrameworkSelenium
                 ele.Click();
             return true;
         }
-        private bool Getattribute(EasyExcelF ee, string[] parms)
+        private bool Getattribute(EasyExcelF ee, dynamic[] parms)
         {
             if (driver == null || waitclass == null)
             {
@@ -300,7 +300,7 @@ namespace EasyExcelFrameworkSelenium
             ee.Locals[parms[2]] = ele.GetAttribute(parms[1]);
             return true;
         }
-        private bool Isselected(EasyExcelF ee, string[] parms)
+        private bool Isselected(EasyExcelF ee, dynamic[] parms)
         {
             if (driver == null || waitclass == null)
             {
@@ -312,7 +312,7 @@ namespace EasyExcelFrameworkSelenium
             return true;
         }
 
-        private bool Selectbytext(EasyExcelF ee, string[] parms)
+        private bool Selectbytext(EasyExcelF ee, dynamic[] parms)
         {
             if (driver == null || waitclass == null)
             {
@@ -324,7 +324,7 @@ namespace EasyExcelFrameworkSelenium
             selectele.SelectByText(parms[1]);
             return true;
         }
-        private bool Selectbyvalue(EasyExcelF ee, string[] parms)
+        private bool Selectbyvalue(EasyExcelF ee, dynamic[] parms)
         {
             if (driver == null || waitclass == null)
             {
@@ -336,7 +336,7 @@ namespace EasyExcelFrameworkSelenium
             selectele.SelectByValue(parms[1]);
             return true;
         }
-        private bool Selectbyindex(EasyExcelF ee, string[] parms)
+        private bool Selectbyindex(EasyExcelF ee, dynamic[] parms)
         {
             if (driver == null || waitclass == null)
             {
@@ -348,7 +348,7 @@ namespace EasyExcelFrameworkSelenium
             selectele.SelectByIndex(int.Parse(parms[1]));
             return true;
         }
-        private bool Selectall(EasyExcelF ee, string[] parms)
+        private bool Selectall(EasyExcelF ee, dynamic[] parms)
         {
             if (driver == null || waitclass == null)
             {
@@ -364,7 +364,7 @@ namespace EasyExcelFrameworkSelenium
             }
             return true;
         }
-        private bool Getselected(EasyExcelF ee, string[] parms)
+        private bool Getselected(EasyExcelF ee, dynamic[] parms)
         {
             if (driver == null || waitclass == null)
             {
@@ -391,7 +391,7 @@ namespace EasyExcelFrameworkSelenium
             ee.Locals[parms[1]] = result;
             return true;
         }
-        private bool Deselectall(EasyExcelF ee, string[] parms)
+        private bool Deselectall(EasyExcelF ee, dynamic[] parms)
         {
             if (driver == null || waitclass == null)
             {
@@ -404,7 +404,7 @@ namespace EasyExcelFrameworkSelenium
             return true;
         }
 
-        private bool Deselectbytext(EasyExcelF ee, string[] parms)
+        private bool Deselectbytext(EasyExcelF ee, dynamic[] parms)
         {
             if (driver == null || waitclass == null)
             {
@@ -416,7 +416,7 @@ namespace EasyExcelFrameworkSelenium
             selectele.DeselectByText(parms[1]);
             return true;
         }
-        private bool Deselectbyvalue(EasyExcelF ee, string[] parms)
+        private bool Deselectbyvalue(EasyExcelF ee, dynamic[] parms)
         {
             if (driver == null || waitclass == null)
             {
@@ -428,7 +428,7 @@ namespace EasyExcelFrameworkSelenium
             selectele.DeselectByValue(parms[1]);
             return true;
         }
-        private bool Deselectbyindex(EasyExcelF ee, string[] parms)
+        private bool Deselectbyindex(EasyExcelF ee, dynamic[] parms)
         {
             if (driver == null || waitclass == null)
             {
@@ -440,7 +440,7 @@ namespace EasyExcelFrameworkSelenium
             selectele.DeselectByIndex(int.Parse(parms[1]));
             return true;
         }
-        private bool Waituntilalertpresent(EasyExcelF ee, string[] parms)
+        private bool Waituntilalertpresent(EasyExcelF ee, dynamic[] parms)
         {
             if (driver == null || waitclass == null)
             {
@@ -449,7 +449,7 @@ namespace EasyExcelFrameworkSelenium
             waitclass.Waitalert(Wait.Timeout(parms[0]));
             return true;
         }
-        private bool Waituntilcontrolexists(EasyExcelF ee, string[] parms)
+        private bool Waituntilcontrolexists(EasyExcelF ee, dynamic[] parms)
         {
             if (driver == null || waitclass == null)
             {
@@ -459,7 +459,7 @@ namespace EasyExcelFrameworkSelenium
             waitclass.Bywait(lc, Bywaitconditions.EXISTS, Wait.Timeout(parms[0]));
             return true;
         }
-        private bool Waituntilcontrolvisible(EasyExcelF ee, string[] parms)
+        private bool Waituntilcontrolvisible(EasyExcelF ee, dynamic[] parms)
         {
             if (driver == null || waitclass == null)
             {
@@ -469,7 +469,7 @@ namespace EasyExcelFrameworkSelenium
             waitclass.Bywait(lc, Bywaitconditions.VISIBLE, Wait.Timeout(parms[0]));
             return true;
         }
-        private bool Waituntilcontrolclickable(EasyExcelF ee, string[] parms)
+        private bool Waituntilcontrolclickable(EasyExcelF ee, dynamic[] parms)
         {
             if (driver == null || waitclass == null)
             {
@@ -479,7 +479,7 @@ namespace EasyExcelFrameworkSelenium
             waitclass.Elewait(lc, Elewaitconditions.CLICKABLE, Wait.Timeout(parms[0]));
             return true;
         }
-        private bool Switchframedefault(EasyExcelF ee, string[] parms)
+        private bool Switchframedefault(EasyExcelF ee, dynamic[] parms)
         {
             if (driver == null || waitclass == null)
             {
@@ -488,19 +488,19 @@ namespace EasyExcelFrameworkSelenium
             driver.SwitchTo().DefaultContent();
             return true;
         }
-        private bool Switchframebyname_id_index(EasyExcelF ee, string[] parms)
+        private bool Switchframebyname_id_index(EasyExcelF ee, dynamic[] parms)
         {
             if (driver == null || waitclass == null)
             {
                 throw new InvalidOperationException("Browser is in open");
             }
-            if (int.TryParse(parms[0], out _))
+            if (int.TryParse((string)parms[0], out _))
                 driver.SwitchTo().Frame(int.Parse(parms[0]));
             else
                 driver.SwitchTo().Frame(parms[0]);
             return true;
         }
-        private bool Switchframebyelement(EasyExcelF ee, string[] parms)
+        private bool Switchframebyelement(EasyExcelF ee, dynamic[] parms)
         {
             if (driver == null || waitclass == null)
             {
@@ -510,7 +510,7 @@ namespace EasyExcelFrameworkSelenium
             driver.SwitchTo().Frame(waitclass.Bywait(lc, Bywaitconditions.EXISTS));
             return true;
         }
-        private bool Switchframeparent(EasyExcelF ee, string[] parms)
+        private bool Switchframeparent(EasyExcelF ee, dynamic[] parms)
         {
             if (driver == null || waitclass == null)
             {

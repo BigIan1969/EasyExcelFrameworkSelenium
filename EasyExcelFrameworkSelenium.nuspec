@@ -2,7 +2,7 @@
 <package >
   <metadata>
     <id>EasyExcelFrameworkSelenium</id>
-    <version>0.0.2</version>
+    <version>0.0.3</version>
     <title>EasyExcelFramework(Selenium)</title>
     <authors>Ian Holdsworth</authors>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
